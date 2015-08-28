@@ -1,0 +1,79 @@
+{% extends "main.html" %} 
+{% block content %}
+<div class="row top-menu">
+    <div class="col-md-10"></div>
+    <div class="col-md-2 text-right">
+        <a href="{{url_for('showLogin')}}">Click Here to Log in </a>
+    </div>
+</div>
+<div class="row divider blue">
+    <div class="col-md-12"></div>
+</div>
+<div class="row banner main">
+    <div class="col-md-1"></div>
+    <div class="col-md-11 padding-none">
+        <h1>Catalog App</h1>
+    </div>
+</div>
+
+<div class='flash'>
+    {% with messages = get_flashed_messages() %} {% if messages %}
+
+    <ul>
+        {% for message in messages %}
+        <li> <strong> {{ message }} </strong> 
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %} {% endwith %}
+
+</div>
+
+
+
+<div class="row padding-top padding-bottom">
+    <div class="col-md-1"></div>
+    <div class="col-md-10 padding-none">
+
+    </div>
+    <div class="col-md-1"></div>
+</div>
+
+<div class="row">
+    <div class="row">
+
+        <div class="col-md-2">
+            <p class="lead">Udacity Sports</p>
+            <div class="list-group">
+
+                {% for catalog_header in catalog_headers %}
+                <a href="{{url_for('showCatalogItems', catalog_header_id = catalog_header.id)}}">
+
+                    <h3>{{catalog_header.name}}</h3>
+
+                </a>
+                {% endfor %}
+
+            </div>
+        </div>
+
+        <div class="col-md-9">
+
+            <div class="thumbnail">
+                <div class="caption-full">
+                    <h2>Just Arrived! Latest Items</h2>
+                                        {% for item in items_with_category %} 
+                        <a href="{{url_for('showCatalogItemDetails', catalog_header_id = item.CatalogHeader.id, catalog_item_id = item.CatalogItem.id)}}">
+                            <h3>{{item.CatalogItem.name}} - ${{item.CatalogItem.price}}</h3>
+                        </a><p>( {{item.CatalogHeader.name}} )</p>
+                    <img src="/static/{{item.CatalogItem.image}}" height="42" width="42">
+                   {% endfor %}
+
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

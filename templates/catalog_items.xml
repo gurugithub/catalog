@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CatalogHeaders xmlns="http://udacity.com/schemas/catalog/0.1">
+    {% for catalog_header in catalog_headers %}
+    <Catalog>
+        <ID>{{catalog_header.id}}</ID>
+        <Name>{{catalog_header.name}}</Name>
+    </Catalog>
+    {% endfor %}
+</CatalogHeaders>

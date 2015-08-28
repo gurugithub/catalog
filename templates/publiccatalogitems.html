@@ -1,0 +1,71 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+	
+	<div class="row divider green">
+		<div class="col-md-12"></div>
+	</div>
+	<div class="row banner menu">
+		<div class="col-md-11 col-md-offset-1 padding-none">
+			<h1>{{ catalog_header.name }}
+			<figure class="creator">
+				<img src="{{ creator.picture}}">
+				<figcaption>by {{ creator.name }}</figcaption>
+			</figure>
+                ( {{item_count}} item's )
+			</h1>
+
+		</div>
+	</div>
+	<div class="row padding-top padding-bottom">
+		<div class="col-md-1"></div>
+		<div class="col-md-11 padding-none">
+			
+		</div>
+		<div class="col-md-7"></div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			{% with messages = get_flashed_messages() %}
+				{% if messages %}
+					<ul>
+						{% for message in messages %}
+							 <li> <strong> {{ message }} </strong> </li>
+						{% endfor %}
+					</ul>
+				{% endif %}
+			{% endwith %}
+		</div>
+	</div>
+	<div class="col-md-2">
+    <p class="lead">Udacity Sports</p>
+    <div class="list-group">
+
+        {% for catalog_header in catalog_headers %}
+        <a href="{{url_for('showCatalogItems', catalog_header_id = catalog_header.id)}}">
+
+            <h3>{{catalog_header.name}}</h3>
+
+        </a>
+        {% endfor %}
+
+    </div>
+    </div>
+
+	{% if items !=[] %}	
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-3">
+	
+					{% for i in items %}
+                        <div class="menu-item">
+								<h3>{{i.name}}</h3>
+								<p>{{i.description}}</p>
+								<p class="menu-price">{{i.price}}</p>
+								<img src="/static/{{i.image}}" height="42" width="42">
+				        </div>
+					{% endfor %}
+			</div>
+		</div>
+	{% endif %}
+{% endblock %}
